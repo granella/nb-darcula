@@ -94,7 +94,6 @@ public class ContentAreaAwareButtonUI extends BasicButtonUI {
                     .getAscent() + getTextShiftOffset());
         }
     }
-    
 
     protected Paint getBackgroundPaint(JComponent c) {
         JButton b = (JButton) c;

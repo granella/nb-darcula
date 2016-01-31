@@ -38,23 +38,23 @@ public class DarculaLFCustoms extends LFCustoms {
     private static final int FONT_DEFAULT_SIZE = 12;
     public static final String DEFAULT_FONT = FONT_DEFAULT_NAME + " " + FONT_DEFAULT_SIZE;
 
-    private static final String TAB_FOCUS_FILL_UPPER = "tab_focus_fill_upper"; //NOI18N
-    private static final String TAB_FOCUS_FILL_LOWER = "tab_focus_fill_lower"; //NOI18N
+    private static final String TAB_FOCUS_FILL_UPPER = "tab_focus_fill_upper";
+    private static final String TAB_FOCUS_FILL_LOWER = "tab_focus_fill_lower";
 
-    private static final String TAB_UNSEL_FILL_UPPER = "tab_unsel_fill_upper"; //NOI18N
-    private static final String TAB_UNSEL_FILL_LOWER = "tab_unsel_fill_lower"; //NOI18N
+    private static final String TAB_UNSEL_FILL_UPPER = "tab_unsel_fill_upper";
+    private static final String TAB_UNSEL_FILL_LOWER = "tab_unsel_fill_lower";
 
-    private static final String TAB_SEL_FILL = "tab_sel_fill"; //NOI18N
+    private static final String TAB_SEL_FILL = "tab_sel_fill";
 
-    private static final String TAB_MOUSE_OVER_FILL_UPPER = "tab_mouse_over_fill_upper"; //NOI18N
-    private static final String TAB_MOUSE_OVER_FILL_LOWER = "tab_mouse_over_fill_lower"; //NOI18N
+    private static final String TAB_MOUSE_OVER_FILL_UPPER = "tab_mouse_over_fill_upper";
+    private static final String TAB_MOUSE_OVER_FILL_LOWER = "tab_mouse_over_fill_lower";
 
-    private static final String TAB_ATTENTION_FILL_UPPER = "tab_attention_fill_upper"; //NOI18N
-    private static final String TAB_ATTENTION_FILL_LOWER = "tab_attention_fill_lower"; //NOI18N
+    private static final String TAB_ATTENTION_FILL_UPPER = "tab_attention_fill_upper";
+    private static final String TAB_ATTENTION_FILL_LOWER = "tab_attention_fill_lower";
 
-    private static final String TAB_BORDER = "tab_border"; //NOI18N      
-    private static final String TAB_SEL_BORDER = "tab_sel_border"; //NOI18N
-    private static final String TAB_BORDER_INNER = "tab_border_inner"; //NOI18N      
+    private static final String TAB_BORDER = "tab_border";      
+    private static final String TAB_SEL_BORDER = "tab_sel_border";
+    private static final String TAB_BORDER_INNER = "tab_border_inner";      
 
     @Override
     public Object[] createGuaranteedKeysAndValues() {
@@ -88,7 +88,7 @@ public class DarculaLFCustoms extends LFCustoms {
         }
 
         Font controlFont = Font.decode(DEFAULT_FONT);
-        Integer in = (Integer) UIManager.get(CUSTOM_FONT_SIZE); //NOI18N
+        Integer in = (Integer) UIManager.get(CUSTOM_FONT_SIZE);
         if (in != null) {
             controlFont = Font.decode(FONT_DEFAULT_NAME + " " + in);
         }
@@ -116,23 +116,18 @@ public class DarculaLFCustoms extends LFCustoms {
             USERFONT, controlFont,
             MENUFONT, controlFont,
             WINDOWTITLEFONT, controlFont,
-            LISTFONT, controlFont,
-            TREEFONT, controlFont,
-            PANELFONT, controlFont,
             SUBFONT, controlFont.deriveFont(Font.PLAIN, Math.min(controlFont.getSize() - 1, 6)),
-            // #61395        
-            SPINNERFONT, controlFont,
             
             // Bug in JDK 1.5 thru b59 - pale blue is incorrectly returned for this
-            "textInactiveText", Color.GRAY, //NOI18N
-            // Work around a bug in windows which sets the text area font to
-            // "MonoSpaced", causing all accessible dialogs to have monospaced text
-            "TextArea.font", new GuaranteedValue("Label.font", controlFont),
+            "textInactiveText", Color.GRAY,
             
             /**
-             * Use calculateD border color for HtmlLabelUI.
+             * Work around a bug in windows which sets the text area font to
+             * "MonoSpaced", causing all accessible dialogs to have monospaced
+             * text
              */
-            "Tree.selectionBorderColor", focusColor,
+            "TextArea.font", new GuaranteedValue("Label.font", controlFont),
+            
             /**
              * HtmlLabelUI uses UIManager.getColor("text") to find background
              * color for unselected items. Make sure the background color used
@@ -143,75 +138,93 @@ public class DarculaLFCustoms extends LFCustoms {
             "infoText", new Color(187, 187, 187),
 
             "LabelUI", "com.revivius.nb.darcula.ui.OptionsAwareLabelUI",
+            "Label.font", controlFont,
+            
             "ButtonUI", "com.revivius.nb.darcula.ui.ContentAreaAwareButtonUI",
             "Button.border", new ReducedInsetsDarculaButtonPainter(),
+            "Button.font", controlFont,
+                        
             "ToggleButtonUI", "com.revivius.nb.darcula.ui.ContentAreaAwareToggleButtonUI",
             "ToggleButton.border", new ReducedInsetsDarculaButtonPainter(),
+            "ToggleButton.font", controlFont,
             
             "ToolBarUI", "com.revivius.nb.darcula.ui.RolloverToolBarUI",
+            "ToolBar.font", controlFont,            
+            
             "SplitPaneUI", "com.revivius.nb.darcula.ui.DarculaSplitPaneUI",
-            // #36
-            "SpinnerUI", "com.revivius.nb.darcula.ui.SafeDarculaSpinnerUI",
-            // #31
-            // Icon provided by Aqua LAF is not visible on dark background
-            // provide default Metal arrow icon for all LAFs
+            
+            SPINNERFONT, controlFont,
+            "SpinnerUI", "com.revivius.nb.darcula.ui.SafeDarculaSpinnerUI", // #36
+            "Spinner.font", controlFont,
+            
+            /**
+             * #31 Icon provided by Aqua LAF is not visible on dark background
+             * provide default Metal arrow icon for all LAFs
+             */
             "Menu.arrowIcon", new SwingLazyValue("javax.swing.plaf.metal.MetalIconFactory", "getMenuArrowIcon"),
+            "Menu.acceleratorFont", controlFont,
+            "Menu.font", controlFont,
 
-            "Table.background", new Color(69, 73, 74),
-            "TableHeader.cellBorder", new InreasedInsetsTableHeaderBorder(),
+            "Table.font", controlFont,
             "Table.ascendingSortIcon", new ImageIcon(DarculaLFCustoms.class.getResource("column-asc.png")),
             "Table.descendingSortIcon", new ImageIcon(DarculaLFCustoms.class.getResource("column-desc.png")),
+            "Table.focusCellHighlightBorder", BorderFactory.createEmptyBorder(),
+            
+            "TableHeader.cellBorder", new InreasedInsetsTableHeaderBorder(),
+            "TableHeader.font", controlFont,
             
             "TitledBorder.border", BorderFactory.createLineBorder(new Color(41, 43, 45), 1),
+            "TitledBorder.font", controlFont,
             
             "MenuItem.acceleratorForeground", new Color(238, 238, 238),
-            "CheckBoxMenuItem.acceleratorForeground", new Color(238, 238, 238),
-            "RadioButtonMenuItem.acceleratorForeground", new Color(238, 238, 238),
+            "MenuItem.acceleratorFont", controlFont,
+            "MenuItem.font", controlFont,
             
-            "List.background", new Color(69, 73, 74),
+            LISTFONT, controlFont,
+            "List.font", controlFont,
+            "List.focusCellHighlightBorder", BorderFactory.createEmptyBorder(),
             
-            "Tree.background", new Color(69, 73, 74),
+            TREEFONT, controlFont,
+            "Tree.font", controlFont,
             "Tree.closedIcon", new ImageIcon(DarculaLFCustoms.class.getResource("open.png")),
             "Tree.openIcon", new ImageIcon(DarculaLFCustoms.class.getResource("open.png")),
-            // NetBeans DebuggingViewComponent uses it as background color
-            "Tree.textBackground", new Color(69, 73, 74),
+            "Tree.textBackground", new Color(69, 73, 74), // NetBeans DebuggingViewComponent uses it as background color
+            "Tree.selectionBorderColor", focusColor, // Use calculateD border color for HtmlLabelUI.            
 
             // FileChooser icons
+            "FileView.directoryIcon", new ImageIcon(DarculaLFCustoms.class.getResource("closed.png")),
+            "FileView.fileIcon", new ImageIcon(DarculaLFCustoms.class.getResource("file.png")),
+            
             "FileChooser.newFolderIcon", new ImageIcon(DarculaLFCustoms.class.getResource("newFolder.png")),
             "FileChooser.upFolderIcon", new ImageIcon(DarculaLFCustoms.class.getResource("upFolder.png")),
             "FileChooser.homeFolderIcon", new ImageIcon(DarculaLFCustoms.class.getResource("homeFolder.png")),
             "FileChooser.detailsViewIcon", new ImageIcon(DarculaLFCustoms.class.getResource("detailsView.png")),
             "FileChooser.listViewIcon", new ImageIcon(DarculaLFCustoms.class.getResource("listView.png")),
-            "FileView.directoryIcon", new ImageIcon(DarculaLFCustoms.class.getResource("closed.png")),
-            "FileView.fileIcon", new ImageIcon(DarculaLFCustoms.class.getResource("file.png")),
             "FileChooser.computerIcon", new ImageIcon(DarculaLFCustoms.class.getResource("computer.png")),
             "FileChooser.hardDriveIcon", new ImageIcon(DarculaLFCustoms.class.getResource("hardDrive.png")),
             "FileChooser.floppyDriveIcon", new ImageIcon(DarculaLFCustoms.class.getResource("floppyDrive.png")),
             
-            // Keys taken from
-            // http://alvinalexander.com/java/java-swing-uimanager-defaults
-            // https://gist.github.com/itzg/5938035
-            // http://thebadprogrammer.com/swing-uimanager-keys/
-            "Button.font", controlFont,
             "CheckBox.font", controlFont,
             "CheckBoxMenuItem.acceleratorFont", controlFont,
             "CheckBoxMenuItem.font", controlFont,
+            "CheckBoxMenuItem.acceleratorForeground", new Color(238, 238, 238),
+
             "ColorChooser.font", controlFont,
+            
             "ComboBox.font", controlFont,
+            
             "EditorPane.font", controlFont,
+            
             "FormattedTextField.font", controlFont,
+            
             "IconButton.font", controlFont,
+            
             "InternalFrame.optionDialogTitleFont", controlFont,
             "InternalFrame.paletteTitleFont", controlFont,
             "InternalFrame.titleFont", controlFont,
-            "Label.font", controlFont,
-            "List.font", controlFont,
-            "Menu.acceleratorFont", controlFont,
-            "Menu.font", controlFont,
+            
             "MenuBar.font", controlFont,
-            "MenuItem.acceleratorFont", controlFont,
-            "MenuItem.font", controlFont,
-
+            
             "OptionPane.buttonFont", controlFont,
             "OptionPane.font", controlFont,
             "OptionPane.messageFont", controlFont,
@@ -221,26 +234,31 @@ public class DarculaLFCustoms extends LFCustoms {
             "OptionPane.questionIcon", new ImageIcon(DarculaLFCustoms.class.getResource("option_pane_question.png")),
             "OptionPane.warningIcon", new ImageIcon(DarculaLFCustoms.class.getResource("option_pane_warning.png")),
 
+            PANELFONT, controlFont,
             "Panel.font", controlFont,
+            
             "PasswordField.font", controlFont,
+            
             "PopupMenu.font", controlFont,
+            
             "ProgressBar.font", controlFont,
+            
             "RadioButton.font", controlFont,
             "RadioButtonMenuItem.acceleratorFont", controlFont,
             "RadioButtonMenuItem.font", controlFont,
+            "RadioButtonMenuItem.acceleratorForeground", new Color(238, 238, 238),
+            
             "ScrollPane.font", controlFont,
+            
             "Slider.font", controlFont,
-            "Spinner.font", controlFont,
+            
             "TabbedPane.font", controlFont,
-            //"TabbedPane.smallFont", controlFont,
-            "Table.font", controlFont,
-            "TableHeader.font", controlFont,
+            
             "TextArea.font", controlFont,
+            
             "TextField.font", controlFont,
+            
             "TextPane.font", controlFont,
-            "TitledBorder.font", controlFont,
-            "ToggleButton.font", controlFont,
-            "ToolBar.font", controlFont,
             
             "ToolTip.font", controlFont,
             "ToolTip.border", BorderFactory.createLineBorder(new Color(154, 154, 102)),
@@ -248,7 +266,6 @@ public class DarculaLFCustoms extends LFCustoms {
             "ToolTip.foregroundInactive", new Color(187, 187, 187),
             "ToolTip.backgroundInactive", new Color(92, 92, 66),
             
-            "Tree.font", controlFont,
             "Viewport.font", controlFont,
         };
 
@@ -266,10 +283,8 @@ public class DarculaLFCustoms extends LFCustoms {
 
     @Override
     public Object[] createApplicationSpecificKeysAndValues() {
-        UIBootstrapValue editorTabsUI = new Windows8EditorColorings(
-                "org.netbeans.swing.tabcontrol.plaf.Windows8EditorTabDisplayerUI");
-        Object viewTabsUI = editorTabsUI.createShared(
-                "org.netbeans.swing.tabcontrol.plaf.Windows8ViewTabDisplayerUI");
+        UIBootstrapValue editorTabsUI = new Windows8EditorColorings("org.netbeans.swing.tabcontrol.plaf.Windows8EditorTabDisplayerUI");
+        Object viewTabsUI = editorTabsUI.createShared("org.netbeans.swing.tabcontrol.plaf.Windows8ViewTabDisplayerUI");
         Object propertySheetValues = new Windows8PropertySheetColorings();
 
         Object[] result = {
@@ -362,7 +377,7 @@ public class DarculaLFCustoms extends LFCustoms {
             "nb.dataview.table.background", new RelativeColor(new Color(0, 0, 0), new Color(0, 0, 0), "Table.background"),
             "nb.dataview.table.altbackground", new RelativeColor(new Color(0, 0, 0), new Color(30, 30, 30), "Table.background"),
             "nb.dataview.table.sqlconstant.foreground", new Color(220, 220, 220),
-            "nb.dataview.tablecell.focused", /*new RelativeColor(new Color(0, 0, 0), new Color(10, 10, 30), "Table.selectionBackground"), */ new Color(13, 41, 62),
+            "nb.dataview.tablecell.focused", new Color(13, 41, 62),
             "nb.dataview.table.rollOverRowBackground", new RelativeColor(new Color(0, 0, 0), new Color(30, 30, 30), "Table.selectionBackground"),
             "nb.dataview.tablecell.edited.selected.foreground", new Color(241, 255, 177),
             "nb.dataview.tablecell.edited.unselected.foreground", /*new Color(0, 255, 16),*/ new Color(172, 221, 124),
@@ -382,10 +397,10 @@ public class DarculaLFCustoms extends LFCustoms {
             "nb.formdesigner.gap.min.color", new Color(78, 81, 83),
             
             // link
-            "nb.html.link.foreground", new Color(125, 160, 225), //NOI18N
-            "nb.html.link.foreground.hover", new Color(13, 41, 62), //NOI18N
-            "nb.html.link.foreground.visited", new Color(125, 160, 225), //NOI18N
-            "nb.html.link.foreground.focus", new Color(13, 41, 62), //NOI18N
+            "nb.html.link.foreground", new Color(125, 160, 225),
+            "nb.html.link.foreground.hover", new Color(13, 41, 62),
+            "nb.html.link.foreground.visited", new Color(125, 160, 225),
+            "nb.html.link.foreground.focus", new Color(13, 41, 62),
 
             // startpage
             "nb.startpage.defaultbackground", Boolean.TRUE,
@@ -397,9 +412,9 @@ public class DarculaLFCustoms extends LFCustoms {
             "nb.startpage.tab.border2.color", new Color(13, 41, 62),
             "nb.startpage.rss.details.color", new Color(187, 187, 187),
             "nb.startpage.rss.header.color", new Color(125, 160, 225),
-            "nb.startpage.tab.imagename.selected", "org/netbeans/modules/welcome/resources/tab_selected_dark.png", //NOI18N
-            "nb.startpage.tab.imagename.rollover", "org/netbeans/modules/welcome/resources/tab_rollover_dark.png", //NOI18N
-            "nb.startpage.imagename.contentheader", "org/netbeans/modules/welcome/resources/content_banner_dark.png", //NOI18N
+            "nb.startpage.tab.imagename.selected", "org/netbeans/modules/welcome/resources/tab_selected_dark.png",
+            "nb.startpage.tab.imagename.rollover", "org/netbeans/modules/welcome/resources/tab_rollover_dark.png",
+            "nb.startpage.imagename.contentheader", "org/netbeans/modules/welcome/resources/content_banner_dark.png",
             "nb.startpage.contentheader.color1", new Color(12, 33, 61),
             "nb.startpage.contentheader.color2", new Color(16, 24, 42),
             
@@ -412,7 +427,7 @@ public class DarculaLFCustoms extends LFCustoms {
             "nb.core.ui.balloon.mouseOverGradientStartColor", new Color(92, 92, 66),
             "nb.core.ui.balloon.mouseOverGradientFinishColor", new Color(92, 92, 66).brighter(),
                 
-            // git
+            // versioning
             "nb.versioning.added.color", new Color(73, 210, 73),
             "nb.versioning.modified.color", new Color(26, 184, 255),
             "nb.versioning.deleted.color", new Color(255, 175, 175),
@@ -498,7 +513,7 @@ public class DarculaLFCustoms extends LFCustoms {
     private class Windows8PropertySheetColorings extends UIBootstrapValue.Lazy {
 
         public Windows8PropertySheetColorings() {
-            super("propertySheet");  //NOI18N
+            super("propertySheet");
         }
 
         @Override
@@ -517,7 +532,7 @@ public class DarculaLFCustoms extends LFCustoms {
     }
 
     /**
-     * Enables invert filter for icons if user requested. 
+     * Enables invert filter for icons if user requested.
      */
     private Object[] maybeEnableIconFilter(Object[] defaults) {
         if (NbPreferences.forModule(DarculaLAFPanel.class).getBoolean("invertIcons", false)) {
@@ -534,9 +549,9 @@ public class DarculaLFCustoms extends LFCustoms {
     }
 
     /**
-     * DarculaLaf:L354-L358 registers ENTER to invoke 'toggle' action. This seems
-     * to cause problems as reported in #14 because enter key can not invoke
-     * default button in dialogs.
+     * DarculaLaf:L354-L358 registers ENTER to invoke 'toggle' action. This
+     * seems to cause problems as reported in #14 because enter key can not
+     * invoke default button in dialogs.
      */
     private void removeEnterFromTreeInputMap() {
         // Make ENTER work in JTrees
@@ -547,32 +562,35 @@ public class DarculaLFCustoms extends LFCustoms {
     }
 
     /**
-     * NOT_FOUND color is hardcoded, should be taken from UIManager.
-     * Use reflection as in DefaultOutlineCellRenderer. 
+     * NOT_FOUND color is hardcoded, should be taken from UIManager. Use
+     * reflection as in DefaultOutlineCellRenderer.
      */
     private static final String SEARCH_BAR_CLASS = "org.netbeans.modules.editor.search.SearchBar";
     private static final String NOT_FOUND_COLOR_FIELD = "NOT_FOUND";
+
     private void replaceSearchNotFoundColor() {
         replaceFieldValue(SEARCH_BAR_CLASS, NOT_FOUND_COLOR_FIELD, new Color(255, 102, 102));
     }
     
     /**
      * DEFAULT_GUTTER_LINE color is hardcoded, should be taken from UIManager.
-     * Use reflection as in DefaultOutlineCellRenderer. 
+     * Use reflection as in DefaultOutlineCellRenderer.
      */
     private static final String GLYPH_GUUTER_CLASS = "org.netbeans.editor.GlyphGutter";
     private static final String DEFAULT_GUTTER_LINE_COLOR_FIELD = "DEFAULT_GUTTER_LINE";
+
     private void replaceGlyphGutterLineColor() {
         replaceFieldValue(GLYPH_GUUTER_CLASS, DEFAULT_GUTTER_LINE_COLOR_FIELD, new Color(136, 136, 136));
     }
     
     /**
-     * GAP_BORDER_COLOR and SAW_COLOR are hardcoded, should be taken from UIManager.
-     * Use reflection as in DefaultOutlineCellRenderer. 
+     * GAP_BORDER_COLOR and SAW_COLOR are hardcoded, should be taken from
+     * UIManager. Use reflection as in DefaultOutlineCellRenderer.
      */
     private static final String FORMDESIGNER_LAYOUT_PAINTER_CLASS = "org.netbeans.modules.form.layoutdesign.LayoutPainter";
     private static final String GAP_BORDER_COLOR_FIELD = "gapBorderColor";
     private static final String SAW_COLOR_FIELD = "sawColor";
+
     private void replaceFormDesignerGapBorderColors() {
         replaceFieldValue(FORMDESIGNER_LAYOUT_PAINTER_CLASS, GAP_BORDER_COLOR_FIELD, new Color(49, 53, 54));
         replaceFieldValue(FORMDESIGNER_LAYOUT_PAINTER_CLASS, SAW_COLOR_FIELD, new Color(49, 53, 54));
@@ -581,19 +599,20 @@ public class DarculaLFCustoms extends LFCustoms {
     /**
      * LFCustoms.getTextFgColor() && LFCustoms.getTextFgColorHTML() uses
      * windowText. DarculaLaf does not override windowText which is initialized
-     * to Color.BLACK by BasicLookAndFeel (DarculaLaf uses BasicLookAndFeel
-     * with reflection)
+     * to Color.BLACK by BasicLookAndFeel (DarculaLaf uses BasicLookAndFeel with
+     * reflection)
      */
     private static final String TEXT_FG_COLOR_HTML_FIELD = "textFgColorHTML";
     private static final String TEXT_FG_COLOR_FIELD = "textFgColor";
+
     private void replaceLFCustomsTextFgColors() {
         replaceFieldValue(LFCustoms.class, TEXT_FG_COLOR_FIELD, new Color(187, 187, 187));
         replaceFieldValue(LFCustoms.class, TEXT_FG_COLOR_HTML_FIELD, "<font color=#bbbbbb>");
     }
 
     /**
-     * #21, #26
-     * fixes code completion colors for all languages (at least for those extending GsfCompletionItem)
+     * #21, #26 fixes code completion colors for all languages (at least for
+     * those extending GsfCompletionItem)
      */
     private static final String GSF_COMPLETION_FORMATTER_CLASS = "org.netbeans.modules.csl.editor.completion.GsfCompletionItem$CompletionFormatter";
     private static final String PARAMETER_NAME_COLOR_FIELD = "PARAMETER_NAME_COLOR"; //getHTMLColor(160, 96, 1);
@@ -605,6 +624,7 @@ public class DarculaLFCustoms extends LFCustoms {
     private static final String CONSTRUCTOR_COLOR_FIELD = "CONSTRUCTOR_COLOR"; // getHTMLColor(178, 139, 0);
     private static final String INTERFACE_COLOR_FIELD = "INTERFACE_COLOR"; // getHTMLColor(64, 64, 64);
     private static final String PARAMETERS_COLOR_FIELD = "PARAMETERS_COLOR"; // getHTMLColor(128, 128, 128);
+
     private void replaceCompletionColors() {
         replaceFieldValue(GSF_COMPLETION_FORMATTER_CLASS, PARAMETER_NAME_COLOR_FIELD, getHTMLColor(new Color(255, 198, 109)));
         replaceFieldValue(GSF_COMPLETION_FORMATTER_CLASS, CLASS_COLOR_FIELD, getHTMLColor(new Color(214, 128, 128)));
@@ -618,15 +638,14 @@ public class DarculaLFCustoms extends LFCustoms {
     }
 
     private static String getHTMLColor(Color c) {
-        return "<font color=#" //NOI18N
+        return "<font color=#"
                 + LFCustoms.getHexString(c.getRed())
                 + LFCustoms.getHexString(c.getGreen())
                 + LFCustoms.getHexString(c.getBlue())
-                + ">"; //NOI18N
+                + ">";
     }
 
     private void replaceFieldValue(String className, String fieldName, Object value) {
-
         Class<?> sbClass = null;
         try {
             sbClass = ClassLoader.getSystemClassLoader().loadClass(className);
@@ -641,16 +660,13 @@ public class DarculaLFCustoms extends LFCustoms {
                         sbClass = systemClassLoader.loadClass(className);
                     }
                 } catch (ClassNotFoundException ex2) {
-                    Logger.getLogger(DarculaLFCustoms.class.getName()).log(Level.INFO,
-                            "Can not find class, will not be able to replace its field...", ex2);
+                    Logger.getLogger(DarculaLFCustoms.class.getName()).log(Level.INFO, "Can not find class, will not be able to replace its field...", ex2);
                 }
             }
         } catch (SecurityException ex) {
-            Logger.getLogger(DarculaLFCustoms.class.getName()).log(Level.INFO,
-                    "Can not find class, will not be able to replace its field...", ex);
+            Logger.getLogger(DarculaLFCustoms.class.getName()).log(Level.INFO, "Can not find class, will not be able to replace its field...", ex);
         } catch (IllegalArgumentException ex) {
-            Logger.getLogger(DarculaLFCustoms.class.getName()).log(Level.INFO,
-                    "Can not find class, will not be able to replace its field...", ex);
+            Logger.getLogger(DarculaLFCustoms.class.getName()).log(Level.INFO, "Can not find class, will not be able to replace its field...", ex);
         }
 
         if (sbClass == null) {
@@ -658,13 +674,12 @@ public class DarculaLFCustoms extends LFCustoms {
         }
 
         replaceFieldValue(sbClass, fieldName, value);
-
     }
     
     private void replaceFieldValue(Class<?> clazz, String fieldName, Object value) {
         try {
             Field field = clazz.getDeclaredField(fieldName);
-            
+
             field.setAccessible(true);
             Field modifiersField = Field.class.getDeclaredField("modifiers");
             modifiersField.setAccessible(true);
@@ -672,14 +687,11 @@ public class DarculaLFCustoms extends LFCustoms {
 
             field.set(null, value);
         } catch (IllegalAccessException ex) {
-            Logger.getLogger(DarculaLFCustoms.class.getName()).log(Level.INFO,
-                    "Can not replace field...", ex);
+            Logger.getLogger(DarculaLFCustoms.class.getName()).log(Level.INFO, "Can not replace field...", ex);
         } catch (NoSuchFieldException ex) {
-            Logger.getLogger(DarculaLFCustoms.class.getName()).log(Level.INFO,
-                    "Can not replace field...", ex);
+            Logger.getLogger(DarculaLFCustoms.class.getName()).log(Level.INFO, "Can not replace field...", ex);
         } catch (SecurityException ex) {
-            Logger.getLogger(DarculaLFCustoms.class.getName()).log(Level.INFO,
-                    "Can not replace field...", ex);
+            Logger.getLogger(DarculaLFCustoms.class.getName()).log(Level.INFO, "Can not replace field...", ex);
         }
     }
     

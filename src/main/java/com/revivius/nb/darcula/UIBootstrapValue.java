@@ -33,18 +33,23 @@ import javax.swing.UIManager;
  * @author  Tim Boudreau
  */
 public class UIBootstrapValue implements UIDefaults.LazyValue {
+
     private boolean installed = false;
     private final String uiClassName;
     protected Object[] defaults;
-    /** Creates a new instance of UIBootstrapValue */
+
+    /**
+     * Creates a new instance of UIBootstrapValue
+     */
     public UIBootstrapValue(String uiClassName, Object[] defaults) {
         this.defaults = defaults;
         this.uiClassName = uiClassName;
     }
-    
-    /** Create the value that UIDefaults will return.  If the keys and values
-     * the UI class we're representing requires have not yet been installed,
-     * this will install them.
+
+    /**
+     * Create the value that UIDefaults will return. If the keys and values the
+     * UI class we're representing requires have not yet been installed, this
+     * will install them.
      */
     public Object createValue(UIDefaults uidefaults) {
         if (!installed) {
@@ -52,10 +57,12 @@ public class UIBootstrapValue implements UIDefaults.LazyValue {
         }
         return uiClassName;
     }
-    
-    /** Install the defaults the UI we're representing will need to function */
+
+    /**
+     * Install the defaults the UI we're representing will need to function
+     */
     private void installKeysAndValues(UIDefaults ui) {
-        ui.putDefaults (getKeysAndValues());
+        ui.putDefaults(getKeysAndValues());
         installed = true;
     }
 
@@ -67,8 +74,8 @@ public class UIBootstrapValue implements UIDefaults.LazyValue {
         if (defaults == null) {
             return;
         }
-        for (int i=0; i < defaults.length; i+=2) {
-            UIManager.put (defaults[i], null);
+        for (int i = 0; i < defaults.length; i += 2) {
+            UIManager.put(defaults[i], null);
         }
         //null defaults so a Meta instance won't cause us to do work twice
         defaults = null;
@@ -78,19 +85,23 @@ public class UIBootstrapValue implements UIDefaults.LazyValue {
         return getClass() + " for " + uiClassName; //NOI18N
     }
 
-    /** Create another entry value to put in UIDefaults, which will also
-     * trigger installing the keys and values, to ensure that they are only
-     * added once, by whichever entry is asked for the value first. */
-    public UIDefaults.LazyValue createShared (String uiClassName) {
-        return new Meta (uiClassName);
+    /**
+     * Create another entry value to put in UIDefaults, which will also trigger
+     * installing the keys and values, to ensure that they are only added once,
+     * by whichever entry is asked for the value first.
+     */
+    public UIDefaults.LazyValue createShared(String uiClassName) {
+        return new Meta(uiClassName);
     }
-    
+
     private class Meta implements UIDefaults.LazyValue {
+
         private String name;
-        public Meta (String uiClassName) {
+
+        public Meta(String uiClassName) {
             this.name = uiClassName;
         }
-        
+
         public Object createValue(javax.swing.UIDefaults uidefaults) {
             if (!installed) {
                 installKeysAndValues(uidefaults);
@@ -104,8 +115,9 @@ public class UIBootstrapValue implements UIDefaults.LazyValue {
     }
 
     public abstract static class Lazy extends UIBootstrapValue implements UIDefaults.LazyValue {
-        public Lazy (String uiClassName) {
-            super (uiClassName, null);
+
+        public Lazy(String uiClassName) {
+            super(uiClassName, null);
         }
 
         public Object[] getKeysAndValues() {

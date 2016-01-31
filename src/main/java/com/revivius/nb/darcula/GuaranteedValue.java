@@ -36,26 +36,30 @@ import java.awt.*;
  * @author  Tim Boudreau
  */
 public class GuaranteedValue implements UIDefaults.LazyValue {
+
     private Object value;
-    /** Creates a new instance of GuaranteedValue */
+
+    /**
+     * Creates a new instance of GuaranteedValue
+     */
     public GuaranteedValue(String key, Object fallback) {
         //Be fail fast, so no random exceptions from random components later
         if (key == null || fallback == null) {
-            throw new NullPointerException ("Null parameters: " + key + ',' + fallback);
+            throw new NullPointerException("Null parameters: " + key + ',' + fallback);
         }
-        
+
         value = UIManager.get(key);
         if (value == null) {
             value = fallback;
         }
     }
-    
+
     public GuaranteedValue(String[] keys, Object fallback) {
         //Be fail fast, so no random exceptions from random components later
         if (keys == null || fallback == null) {
-            throw new NullPointerException ("Null parameters: " + keys + ',' + fallback);
+            throw new NullPointerException("Null parameters: " + keys + ',' + fallback);
         }
-        for (int i=0; i < keys.length; i++) {
+        for (int i = 0; i < keys.length; i++) {
             value = UIManager.get(keys[i]);
             if (value != null) {
                 break;
@@ -65,13 +69,15 @@ public class GuaranteedValue implements UIDefaults.LazyValue {
             value = fallback;
         }
     }
-    
+
     public Object createValue(UIDefaults table) {
         return value;
     }
-    
-    /** Convenience getter of the value as a color - returns null if this
-     * instance was used for some other type */
+
+    /**
+     * Convenience getter of the value as a color - returns null if this
+     * instance was used for some other type
+     */
     public Color getColor() {
         Object o = createValue(null);
         if (o instanceof Color) {
