@@ -267,6 +267,8 @@ public class DarculaLFCustoms extends LFCustoms {
             "ToolTip.backgroundInactive", new Color(92, 92, 66),
             
             "Viewport.font", controlFont,
+            
+            "Separator.foreground", new Color(81, 81, 81),
         };
 
         removeEnterFromTreeInputMap();
@@ -294,25 +296,31 @@ public class DarculaLFCustoms extends LFCustoms {
             
             // main toolbar
             "Nb.MainWindow.Toolbar.Dragger", "com.revivius.nb.darcula.ToolbarXP",
-            "Nb.MainWindow.Toolbar.Border", BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(41, 43, 45)),
+            "Nb.MainWindow.Toolbar.Border", BorderFactory.createCompoundBorder(
+                    BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(40, 40, 40)), 
+                    BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(85, 85, 85))
+            ),
             "Nb.ToolBar.border", BorderFactory.createEmptyBorder(),
             
             EDITOR_TAB_DISPLAYER_UI, editorTabsUI,
+            EDITOR_TOOLBAR_BORDER, BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(41, 43, 45)),
+            EDITOR_ERRORSTRIPE_SCROLLBAR_INSETS, new Insets(16, 0, 16, 0),
+            
             VIEW_TAB_DISPLAYER_UI, viewTabsUI,
+            
             SLIDING_BUTTON_UI, "org.netbeans.swing.tabcontrol.plaf.WinXPSlidingButtonUI",
+            
             PROPERTYSHEET_BOOTSTRAP, propertySheetValues,
             
             SCROLLPANE_BORDER, BorderFactory.createLineBorder(new Color(41, 43, 45)),
             SCROLLPANE_BORDER_COLOR, new Color(41, 43, 45),
-            
-            EDITOR_TOOLBAR_BORDER, BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(41, 43, 45)),
-            EDITOR_ERRORSTRIPE_SCROLLBAR_INSETS, new Insets(16, 0, 16, 0),
-            
+           
             DESKTOP_BACKGROUND, Color.RED,
             DESKTOP_BORDER, BorderFactory.createEmptyBorder(),
-            WORKPLACE_FILL, Color.RED,
-            
             DESKTOP_SPLITPANE_BORDER, BorderFactory.createEmptyBorder(),
+                        
+            WORKPLACE_FILL, Color.RED,
+
             SPLIT_PANE_DIVIDER_SIZE_VERTICAL, 2,
             SPLIT_PANE_DIVIDER_SIZE_HORIZONTAL, 2,
             
@@ -498,10 +506,7 @@ public class DarculaLFCustoms extends LFCustoms {
                 
                 //Borders for the tab control
                 EDITOR_TAB_OUTER_BORDER, BorderFactory.createEmptyBorder(),
-                EDITOR_TAB_CONTENT_BORDER, BorderFactory.createCompoundBorder(
-                        new MatteBorder(0, 0, 1, 0, new Color(41, 43, 45)),
-                        BorderFactory.createEmptyBorder(0, 1, 0, 1)
-                ),
+                EDITOR_TAB_CONTENT_BORDER, new MatteBorder(0, 1, 1, 1, new Color(41, 43, 45)),
                 EDITOR_TAB_TABS_BORDER, BorderFactory.createEmptyBorder(),
                 VIEW_TAB_OUTER_BORDER, BorderFactory.createEmptyBorder(),
                 VIEW_TAB_CONTENT_BORDER, new MatteBorder(0, 1, 1, 1, new Color(41, 43, 45)),
