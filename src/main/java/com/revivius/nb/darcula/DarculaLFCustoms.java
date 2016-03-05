@@ -164,6 +164,8 @@ public class DarculaLFCustoms extends LFCustoms {
             "Menu.arrowIcon", new SwingLazyValue("javax.swing.plaf.metal.MetalIconFactory", "getMenuArrowIcon"),
             "Menu.acceleratorFont", controlFont,
             "Menu.font", controlFont,
+            
+            "TabbedPaneUI", "com.revivius.nb.darcula.ui.DarkScrollButtonTabbedPaneUI",
 
             "Table.font", controlFont,
             "Table.ascendingSortIcon", new ImageIcon(DarculaLFCustoms.class.getResource("column-asc.png")),
