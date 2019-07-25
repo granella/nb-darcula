@@ -45,6 +45,11 @@ public final class DarculaLAFOptionsPanelController extends OptionsPanelControll
 
     public static final String FONT_STRING = "font";
     public static final String OVERRIDE_FONT_BOOLEAN = "overrideFont";
+    public static final String FONT_STRING = "font";
+    
+    public static final String OVERRIDE_TREE_INDENT_BOOLEAN = "overrideTreeIndent";
+    public static final String TREE_INDENT_INT = "treeIndent";
+    
     public static final String INVERT_ICONS_BOOLEAN = "invertIcons";
     public static final String STRETCHED_TABS_BOOLEAN = "stretchedTabs";
 
